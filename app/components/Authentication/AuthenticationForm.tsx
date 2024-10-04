@@ -92,7 +92,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({ isSignIn
   };
   return (
     <Content>
-      <h1 className="text-center font-bold text-3xl my-2 pt-8">{isSignIn ? "Sign In" : "Sign Up"}</h1>
+      <h1 className="text-center font-bold text-3xl py-6">{isSignIn ? "Sign In" : "Sign Up"}</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="space-y-4">

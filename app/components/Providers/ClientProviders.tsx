@@ -15,9 +15,8 @@ export const ClientProviders = ({ children }: { children: React.ReactNode }) => 
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
-        <ThemeRegistry options={{ key: "joy" }}>
-          <W3sProvider>{children}</W3sProvider>
-        </ThemeRegistry>
+        <W3sProvider>{children}</W3sProvider>
+        {/* </ThemeRegistry> */}
       </QueryClientProvider>
     </SessionProvider>
   );

@@ -8,12 +8,8 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
+        card: "#1D1C1E",
         secondary: "#9C27B0",
       },
     },
@@ -22,6 +18,5 @@ const config: Config = {
   corePlugins: {
     preflight: false,
   },
-  important: "#__next",
 };
 export default config;
