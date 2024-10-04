@@ -11,7 +11,7 @@ export default async function RootLayout({
   const isValidOnboardStatus = session ? await validOnboardStatus(session) : false;
 
   if (!session || !isValidOnboardStatus) {
-    redirect("/signinner");
+    redirect("/signin");
   }
 
   return <>{children}</>;
