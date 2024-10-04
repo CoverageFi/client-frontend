@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         card: "#1D1C1E",
-        secondary: "#9C27B0",
+        accent: "#d7fe65",
       },
     },
   },

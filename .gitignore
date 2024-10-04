@@ -39,3 +39,5 @@ next-env.d.ts
 # terraform
 .terraform/
 .terraform.lock.hcl
+
+/app/(pages)/dd

@@ -3,7 +3,7 @@ import "../globals.css";
 import React from "react";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
-
+import Navbar from "@/app/components/Navbar";
 import { ClientProviders } from "@/app/components";
 
 const inter = Inter({
@@ -20,6 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div>
           <ClientProviders>
+            <Navbar />
             <div>{children}</div>
           </ClientProviders>
         </div>
