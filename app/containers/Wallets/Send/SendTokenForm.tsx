@@ -1,34 +1,9 @@
-// Copyright (c) 2024, Circle Technologies, LLC. All rights reserved.
-//
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 "use client";
 import { tokenHelper } from "@/app/shared/utils";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import {
-  BackButton,
-  Content,
-  LoadingWrapper,
-  useSendTokenContext,
-  TextField,
-} from "@/app/components";
-import {
-  useEstimateFeeMutation,
-  useValidateAddressMutation,
-} from "@/app/axios/transactions";
+import { BackButton, Content, LoadingWrapper, useSendTokenContext, TextField } from "@/app/components";
+import { useEstimateFeeMutation, useValidateAddressMutation } from "@/app/axios/transactions";
 import { useRouter } from "next/navigation";
 import { useWalletBalances } from "@/app/axios";
 import * as yup from "yup";
@@ -36,14 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Typography } from "@mui/joy";
 
 export const SendTokenForm = () => {
-  const {
-    tokenName,
-    walletId,
-    tokenAndRecipient,
-    setTokenAndRecipient,
-    setStep,
-    setEstimatedFee,
-  } = useSendTokenContext();
+  const { tokenName, walletId, tokenAndRecipient, setTokenAndRecipient, setStep, setEstimatedFee } =
+    useSendTokenContext();
   const imageSymbol = tokenHelper(tokenName);
   const router = useRouter();
 
@@ -87,14 +56,13 @@ export const SendTokenForm = () => {
 
   type FormInputSchema = yup.InferType<typeof FormInputs>;
 
-  const { register, handleSubmit, setValue, formState, setError, watch } =
-    useForm<FormInputSchema>({
-      resolver: yupResolver(FormInputs),
-      defaultValues: {
-        amount: tokenAndRecipient.amount,
-        address: tokenAndRecipient.address,
-      },
-    });
+  const { register, handleSubmit, setValue, formState, setError, watch } = useForm<FormInputSchema>({
+    resolver: yupResolver(FormInputs),
+    defaultValues: {
+      amount: tokenAndRecipient.amount,
+      address: tokenAndRecipient.address,
+    },
+  });
 
   const validateAddressMutation = useValidateAddressMutation();
 
@@ -130,24 +98,14 @@ export const SendTokenForm = () => {
 
   return (
     <LoadingWrapper isLoading={isLoading}>
-      <form
-        onSubmit={handleSubmit(submitHandler)}
-        className="h-full flex flex-col"
-      >
+      <form onSubmit={handleSubmit(submitHandler)} className="h-full flex flex-col">
         <div className="grow">
           <Content>
             <nav>
-              <BackButton onClick={router.back}>
-                Send {token?.token.symbol}
-              </BackButton>
+              <BackButton onClick={router.back}>Send {token?.token.symbol}</BackButton>
             </nav>
             <div className="grow flex flex-col items-center gap-y-4 p-2">
-              <Image
-                alt="token icon"
-                height={80}
-                width={80}
-                src={imageSymbol.svg}
-              />
+              <Image alt="token icon" height={80} width={80} src={imageSymbol.svg} />
 
               <Typography level="body-lg" fontWeight={500}>
                 {token?.amount} {token?.token.symbol} available
@@ -177,11 +135,7 @@ export const SendTokenForm = () => {
                 helperText={formState.errors.amount?.message}
               />
             </div>
-            <Button
-              loading={formState.isSubmitting}
-              disabled={token?.amount === "0"}
-              type="submit"
-            >
+            <Button loading={formState.isSubmitting} disabled={token?.amount === "0"} type="submit">
               Next
             </Button>
           </Content>

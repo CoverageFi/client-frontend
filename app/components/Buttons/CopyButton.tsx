@@ -1,19 +1,3 @@
-// Copyright (c) 2024, Circle Technologies, LLC. All rights reserved.
-//
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -26,15 +10,11 @@ import { IconButton } from "@mui/joy";
 interface CopyButtonProps {
   copyValue: string;
   copyLabel?: string;
-  variant?: ButtonProps['variant'];
+  variant?: ButtonProps["variant"];
 }
 
 const COPY_CLIPBOARD_RESET_INTERVAL = 3000;
-export const CopyButton: React.FC<CopyButtonProps> = ({
-  copyLabel,
-  copyValue,
-  variant = 'plain',
-}) => {
+export const CopyButton: React.FC<CopyButtonProps> = ({ copyLabel, copyValue, variant = "plain" }) => {
   const [copied, setCopied] = useState(false);
   const setTimerRef = useRef<NodeJS.Timeout>();
 
@@ -60,9 +40,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
 
   return copyLabel ? (
     <Button
-      endDecorator={
-        copied ? <CheckIcon width={20} /> : <DocumentDuplicateIcon width={20} />
-      }
+      endDecorator={copied ? <CheckIcon width={20} /> : <DocumentDuplicateIcon width={20} />}
       onClick={handleCopyToClipboard}
       variant={variant}
       className="py-0 text-sm w-full"

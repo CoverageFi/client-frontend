@@ -1,27 +1,6 @@
-// Copyright (c) 2024, Circle Technologies, LLC. All rights reserved.
-//
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 import { NextAuthOptions, Session, User } from "next-auth";
 import { axios } from "@/app/axios";
-import {
-  GasFeeObject,
-  Transaction,
-  TransactionStateEnum,
-  TransactionTypeEnum,
-} from "./types";
+import { GasFeeObject, Transaction, TransactionStateEnum, TransactionTypeEnum } from "./types";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const calculateSum = (amounts: string[]): string => {
@@ -66,8 +45,7 @@ export const getAddressAbbreviation = (address: string) => {
 
 export const calculateEstimatedFee = (estimatedFee: GasFeeObject): number => {
   return (
-    (parseFloat(estimatedFee.maxFee ? estimatedFee.maxFee : "0") +
-      parseFloat(estimatedFee.priorityFee)) *
+    (parseFloat(estimatedFee.maxFee ? estimatedFee.maxFee : "0") + parseFloat(estimatedFee.priorityFee)) *
     parseFloat(estimatedFee.gasLimit) *
     10 ** -9
   );
@@ -151,22 +129,16 @@ export const tokenHelper = (tokenName: string | undefined) => {
   }
 };
 
-export const getTransactionOperation = (
-  walletAddress: string,
-  transaction?: Transaction,
-) => {
+export const getTransactionOperation = (walletAddress: string, transaction?: Transaction) => {
   const isSend =
-    transaction?.sourceAddress === walletAddress &&
-    transaction?.transactionType === TransactionTypeEnum.OUTBOUND;
+    transaction?.sourceAddress === walletAddress && transaction?.transactionType === TransactionTypeEnum.OUTBOUND;
   const operation = isSend ? "Sent" : "Deposited";
   const operator = isSend ? "-" : "+";
 
   return { operation, operator };
 };
 
-export const validOnboardStatus = async (
-  session: Session,
-): Promise<boolean> => {
+export const validOnboardStatus = async (session: Session): Promise<boolean> => {
   try {
     const response = await axios.get<{
       user: {
@@ -175,10 +147,7 @@ export const validOnboardStatus = async (
       };
     }>(`/users/${session.user.userId}`);
 
-    if (
-      response?.data?.user.pinStatus == "ENABLED" &&
-      response?.data?.user.securityQuestionStatus == "ENABLED"
-    ) {
+    if (response?.data?.user.pinStatus == "ENABLED" && response?.data?.user.securityQuestionStatus == "ENABLED") {
       return true;
     }
     return false;
@@ -230,9 +199,7 @@ export const authOptions: NextAuthOptions = {
         });
         if (userInfo) {
           if (userInfo.status === 201) {
-            throw Error(
-              "This email address has already been used, please sign in",
-            );
+            throw Error("This email address has already been used, please sign in");
           }
           // Any object returned will be saved in `user` property of the JWT
           const user = {

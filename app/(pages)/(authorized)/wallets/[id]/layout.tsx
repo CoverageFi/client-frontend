@@ -1,31 +1,7 @@
-// Copyright (c) 2024, Circle Technologies, LLC. All rights reserved.
-//
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 "use client";
 import { CopyButton, useW3sContext } from "@/app/components";
 import { blockchainMeta, getAddressAbbreviation } from "@/app/shared/utils";
-import {
-  CircularProgress,
-  Dropdown,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  Tooltip,
-} from "@mui/joy";
+import { CircularProgress, Dropdown, IconButton, Menu, MenuButton, MenuItem, Tooltip } from "@mui/joy";
 import { signOut } from "next-auth/react";
 import { useRestorePinMutation, useWallet, useWallets } from "@/app/axios";
 import Image from "next/image";
@@ -46,13 +22,7 @@ type WalletLayoutParams = {
   id: string;
 };
 
-export default function WalletLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: WalletLayoutParams;
-}) {
+export default function WalletLayout({ children, params }: { children: React.ReactNode; params: WalletLayoutParams }) {
   const router = useRouter();
   const { client } = useW3sContext();
   const { data: wallet } = useWallet(params.id);
@@ -84,40 +54,28 @@ export default function WalletLayout({
   return (
     <>
       {/* Wallet Address */}
-      <div className='flex p-5 justify-between items-center relative gap-x-4'>
-        <Tooltip title={blockchainInfo.testnet} placement='bottom-start'>
+      <div className="flex p-5 justify-between items-center relative gap-x-4">
+        <Tooltip title={blockchainInfo.testnet} placement="bottom-start">
           <IconButton>
             {blockchainInfo.svg ? (
-              <Image
-                alt='blockchain'
-                src={blockchainInfo.svg}
-                width={20}
-                height={20}
-              />
+              <Image alt="blockchain" src={blockchainInfo.svg} width={20} height={20} />
             ) : (
-              <QuestionMarkCircleIcon width={20} className='text-gray-400' />
+              <QuestionMarkCircleIcon width={20} className="text-gray-400" />
             )}
           </IconButton>
         </Tooltip>
 
-        <CopyButton
-          copyValue={walletAddress}
-          copyLabel={getAddressAbbreviation(walletAddress)}
-        />
+        <CopyButton copyValue={walletAddress} copyLabel={getAddressAbbreviation(walletAddress)} />
 
         <Dropdown>
-          <MenuButton
-            disabled={restorePin.isLoading}
-            variant='plain'
-            className='px-2 text-slate-600'
-          >
+          <MenuButton disabled={restorePin.isLoading} variant="plain" className="px-2 text-slate-600">
             {restorePin.isLoading ? (
-              <CircularProgress color='neutral' />
+              <CircularProgress color="neutral" />
             ) : (
-              <EllipsisVerticalIcon className='text-slate-600' height={20} />
+              <EllipsisVerticalIcon className="text-slate-600" height={20} />
             )}
           </MenuButton>
-          <Menu placement='bottom-end' size='sm'>
+          <Menu placement="bottom-end" size="sm">
             {wallets?.data.wallets.map((wallet) => {
               // hide currently selected wallet
               if (wallet.id === params.id) return null;

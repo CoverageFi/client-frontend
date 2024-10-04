@@ -1,19 +1,3 @@
-// Copyright (c) 2024, Circle Technologies, LLC. All rights reserved.
-//
-// SPDX-License-Identifier: Apache-2.0
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useW3sContext } from "../Providers/W3sProvider";
@@ -30,14 +14,8 @@ import * as yup from "yup";
 import { Content } from "..";
 
 const formSchema = yup.object({
-  email: yup
-    .string()
-    .email("Please enter a valid email.")
-    .required("Email required"),
-  password: yup
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password required"),
+  email: yup.string().email("Please enter a valid email.").required("Email required"),
+  password: yup.string().min(8, "Password must be at least 8 characters").required("Password required"),
 });
 
 type FormInputs = yup.InferType<typeof formSchema>;
@@ -49,9 +27,7 @@ interface AuthenticationFormProps {
   isSignIn?: boolean;
 }
 
-export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
-  isSignIn = true,
-}) => {
+export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({ isSignIn = true }) => {
   const { register, handleSubmit, formState } = useForm<FormInputs>({
     resolver: yupResolver(formSchema),
   });
@@ -116,24 +92,22 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
   };
   return (
     <Content>
-      <h1 className='text-center font-bold text-3xl my-2 pt-8'>
-        {isSignIn ? "Sign In" : "Sign Up"}
-      </h1>
+      <h1 className="text-center font-bold text-3xl my-2 pt-8">{isSignIn ? "Sign In" : "Sign Up"}</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-        <div className='space-y-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+        <div className="space-y-4">
           <TextField
-            placeholder='Email'
-            type='email'
-            className='flex'
+            placeholder="Email"
+            type="email"
+            className="flex"
             error={!!formState.errors.email?.message}
             helperText={formState.errors.email?.message}
             {...register("email")}
           />
           <TextField
-            placeholder='Password'
+            placeholder="Password"
             type={isMasked ? "password" : "text"}
-            className='flex'
+            className="flex"
             error={!!formState.errors.password?.message}
             helperText={formState.errors.password?.message}
             endDecorator={
@@ -143,29 +117,21 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({
             }
             {...register("password")}
           />
-          <Button
-            variant='solid'
-            className='w-full'
-            size='lg'
-            type='submit'
-            loading={loading}
-          >
+          <Button variant="solid" className="w-full" size="lg" type="submit" loading={loading}>
             {isSignIn ? "Sign In" : "Sign Up"}
           </Button>
-          <p className='text-yellow-500'>{formMessage ? formMessage : ""}</p>
+          <p className="text-yellow-500">{formMessage ? formMessage : ""}</p>
         </div>
       </form>
 
-      <Typography className='text-center text-sm font-medium'>
+      <Typography className="text-center text-sm font-medium">
         {isSignIn ? "Don't have an account?" : "Already have an account?"}
       </Typography>
 
       <Button
-        variant='plain'
-        className='w-full'
-        onClick={
-          isSignIn ? () => router.push("/signup") : () => router.push("/signin")
-        }
+        variant="plain"
+        className="w-full"
+        onClick={isSignIn ? () => router.push("/signup") : () => router.push("/signin")}
       >
         {!isSignIn ? "Sign In" : "Sign Up"}
       </Button>
