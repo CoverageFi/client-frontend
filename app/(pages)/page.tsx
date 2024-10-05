@@ -1,8 +1,10 @@
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center flex-col gap-7 lg:gap-10">
-      <h2 className="text-5xl lg:text-[8rem]">CoverageFi</h2>
-      <span className="opacity-70 text-lg lg:text-3xl">Stablecoins trading made easy.</span>
+    <div className="min-h-screen flex items-center justify-center flex-col gap-5 lg:gap-6">
+      <h2 className="text-6xl lg:text-[10rem] p-2 lg:p-6 bg-gradient-to-b from-[#E4E4E4] to-[#8b8b8b] bg-clip-text text-transparent">
+        CoverageFi
+      </h2>
+      <span className="opacity-70 text-xl lg:text-3xl capitalize">Stablecoins made easy</span>
     </div>
   );
 }

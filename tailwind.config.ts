@@ -9,14 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        light: "#E4E4E4",
+        dark: "#181818",
         card: "#1D1C1E",
-        accent: "#d7fe65",
+        buttonBg: "#2B2B2B",
+        accent: "#EA80FC",
       },
     },
   },
   plugins: [],
   corePlugins: {
-    preflight: false,
+    preflight: true,
   },
+  important: "#__next",
 };
 export default config;

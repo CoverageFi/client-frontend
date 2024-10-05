@@ -92,7 +92,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({ isSignIn
   };
   return (
     <Content>
-      <h1 className="text-center font-bold text-3xl py-6">{isSignIn ? "Sign In" : "Sign Up"}</h1>
+      <h1 className="text-center font-bold text-3xl pb-8">{isSignIn ? "Sign In" : "Sign Up"}</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <div className="space-y-4">
@@ -117,24 +117,23 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({ isSignIn
             }
             {...register("password")}
           />
-          <Button variant="solid" className="w-full" size="lg" type="submit" loading={loading}>
-            {isSignIn ? "Sign In" : "Sign Up"}
-          </Button>
+          <button className="w-full py-4 text-xl rounded-2xl bg-accent/70 hover:bg-accent duration-200 " type="submit">
+            {isSignIn ? "Sign in" : "Sign up"}
+          </button>
           <p className="text-yellow-500">{formMessage ? formMessage : ""}</p>
         </div>
       </form>
 
-      <Typography className="text-center text-sm font-medium">
+      <p className="text-center text-sm font-medium opacity-30">
         {isSignIn ? "Don't have an account?" : "Already have an account?"}
-      </Typography>
+      </p>
 
-      <Button
-        variant="plain"
-        className="w-full"
+      <button
+        className="btn-base w-full items-center rounded-2xl mt-3 py-2 text-lg hover:border cursor-pointer duration-200 opacity-60 hover:opacity-100 border border-light text-center"
         onClick={isSignIn ? () => router.push("/signup") : () => router.push("/signin")}
       >
-        {!isSignIn ? "Sign In" : "Sign Up"}
-      </Button>
+        {!isSignIn ? "Sign in" : "Sign up"}
+      </button>
     </Content>
   );
 };
