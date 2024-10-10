@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/16/solid";
 import { useRouter } from "next/navigation";
 import { blockchainNames } from "@/app/shared/types";
+import { Content } from "@/app/components";
 
 type WalletLayoutParams = {
   /*
@@ -54,66 +55,68 @@ export default function WalletLayout({ children, params }: { children: React.Rea
   return (
     <>
       {/* Wallet Address */}
-      <div className="flex p-5 justify-between items-center relative gap-x-4">
-        <Tooltip title={blockchainInfo.testnet} placement="bottom-start">
-          <IconButton>
-            {blockchainInfo.svg ? (
-              <Image alt="blockchain" src={blockchainInfo.svg} width={20} height={20} />
-            ) : (
-              <QuestionMarkCircleIcon width={20} className="text-gray-400" />
-            )}
-          </IconButton>
-        </Tooltip>
+      <Content>
+        <div className="flex p-5 justify-between items-center relative gap-x-4">
+          <Tooltip title={blockchainInfo.testnet} placement="bottom-start">
+            <IconButton>
+              {blockchainInfo.svg ? (
+                <Image alt="blockchain" src={blockchainInfo.svg} width={20} height={20} />
+              ) : (
+                <QuestionMarkCircleIcon width={20} className="text-gray-400" />
+              )}
+            </IconButton>
+          </Tooltip>
 
-        <CopyButton copyValue={walletAddress} copyLabel={getAddressAbbreviation(walletAddress)} />
+          <CopyButton copyValue={walletAddress} copyLabel={getAddressAbbreviation(walletAddress)} />
 
-        <Dropdown>
-          <MenuButton disabled={restorePin.isLoading} variant="plain" className="px-2 text-slate-600">
-            {restorePin.isLoading ? (
-              <CircularProgress color="neutral" />
-            ) : (
-              <EllipsisVerticalIcon className="text-slate-600" height={20} />
-            )}
-          </MenuButton>
-          <Menu placement="bottom-end" size="sm">
-            {wallets?.data.wallets.map((wallet) => {
-              // hide currently selected wallet
-              if (wallet.id === params.id) return null;
-              return (
-                <MenuItem
-                  key={wallet.id}
-                  onClick={() => {
-                    router.push(`/wallets/${wallet.id}`);
-                  }}
-                >
-                  <Image
-                    src={blockchainMeta(wallet.blockchain).svg}
-                    alt={`${wallet.blockchain}-icon`}
-                    width={16}
-                    height={16}
-                  />{" "}
-                  {blockchainNames[wallet.blockchain]}
-                </MenuItem>
-              );
-            })}
-            <MenuItem
-              onClick={() => {
-                router.push("/wallets/create");
-              }}
-            >
-              <PlusIcon width={16} /> Create new wallet
-            </MenuItem>
-            <MenuItem onClick={handleChangePin}>
-              <Cog6ToothIcon width={16} /> Change Pin
-            </MenuItem>
-            <MenuItem onClick={handleSignOut}>
-              <ArrowRightStartOnRectangleIcon width={16} />
-              Sign out
-            </MenuItem>
-          </Menu>
-        </Dropdown>
-      </div>
-      {children}
+          <Dropdown>
+            <MenuButton disabled={restorePin.isLoading} variant="plain" className="px-2 text-slate-600">
+              {restorePin.isLoading ? (
+                <CircularProgress color="neutral" />
+              ) : (
+                <EllipsisVerticalIcon className="text-slate-600" height={20} />
+              )}
+            </MenuButton>
+            <Menu placement="bottom-end" size="sm">
+              {wallets?.data.wallets.map((wallet) => {
+                // hide currently selected wallet
+                if (wallet.id === params.id) return null;
+                return (
+                  <MenuItem
+                    key={wallet.id}
+                    onClick={() => {
+                      router.push(`/wallets/${wallet.id}`);
+                    }}
+                  >
+                    <Image
+                      src={blockchainMeta(wallet.blockchain).svg}
+                      alt={`${wallet.blockchain}-icon`}
+                      width={16}
+                      height={16}
+                    />{" "}
+                    {blockchainNames[wallet.blockchain]}
+                  </MenuItem>
+                );
+              })}
+              <MenuItem
+                onClick={() => {
+                  router.push("/wallets/create");
+                }}
+              >
+                <PlusIcon width={16} /> Create new wallet
+              </MenuItem>
+              <MenuItem onClick={handleChangePin}>
+                <Cog6ToothIcon width={16} /> Change Pin
+              </MenuItem>
+              <MenuItem onClick={handleSignOut}>
+                <ArrowRightStartOnRectangleIcon width={16} />
+                Sign out
+              </MenuItem>
+            </Menu>
+          </Dropdown>
+        </div>
+        {children}
+      </Content>
     </>
   );
 }

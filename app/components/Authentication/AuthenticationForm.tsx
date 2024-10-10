@@ -117,7 +117,7 @@ export const AuthenticationForm: React.FC<AuthenticationFormProps> = ({ isSignIn
             }
             {...register("password")}
           />
-          <button className="w-full py-4 text-xl rounded-2xl bg-accent/70 hover:bg-accent duration-200 " type="submit">
+          <button className="w-full py-4 text-xl rounded-2xl bg-accent/70 hover:bg-accent duration-200" type="submit">
             {isSignIn ? "Sign in" : "Sign up"}
           </button>
           <p className="text-yellow-500">{formMessage ? formMessage : ""}</p>
